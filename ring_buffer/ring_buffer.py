@@ -3,6 +3,7 @@ class RingBuffer:
     def __init__(self, capacity):
         self.capacity = capacity
         self.storage = []
+        self.current_index = 0
     
     def append(self, item):
         
@@ -10,17 +11,11 @@ class RingBuffer:
             self.storage.append(item)
         
         else:
-            i = 0
-            if i < self.capacity:
-                self.storage[i] = item
-                i += 1
-                return i
-            else:
-                i= 0
-                self.storage[i] =item
-                return i
-                
-
+            if self.current_index < self.capacity:
+                self.storage[self.current_index] = item
+                self.current_index = (self.current_index + 1) % self.capacity
+    
     def get(self):
-       return self.storage
+        return self.storage
+       
         
